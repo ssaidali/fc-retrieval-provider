@@ -17,7 +17,10 @@ func NewProvider(conf *viper.Viper) *Provider {
 }
 
 func Start(p *Provider) {
-	log.Info().Msg("Provider started !")
+	scheme := p.conf.GetString("SERVICE_SCHEME")
+	host := p.conf.GetString("SERVICE_HOST")
+	port := p.conf.GetString("SERVICE_PORT")
+	log.Printf("Provider started at %s://%s:%s", scheme, host, port)
 }
 
 var Module = fx.Options(
