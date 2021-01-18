@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  client:
+    image: fc-retrieval-provider
+    container_name: provider
+    networks:
+      - shared
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file:
+      - .env
+     
+networks:
+  shared:
