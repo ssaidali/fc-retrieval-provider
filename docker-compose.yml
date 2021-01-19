@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   client:
-    image: fc-retrieval-provider
+    image: fc-retrieval-provider:v1
     container_name: provider
     networks:
       - shared
