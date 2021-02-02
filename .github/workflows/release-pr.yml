@@ -12,7 +12,8 @@ jobs:
     steps:
       - name: Set variables
         run: |
-          echo "pr-${GITHUB_HEAD_REF:0:3}" > docker_image_tag
+          export docker_image_tag="pr-${GITHUB_HEAD_REF:0:3}"
+          echo "::set-env name=docker_image_tag::$docker_image_tag"
       - name: Echo Docker image tag
         run: echo "$docker_image_tag"
       # - name: Check out the repo
