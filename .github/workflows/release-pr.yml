@@ -1,11 +1,11 @@
 name: Publish Docker image
 on:
-  push:
-    branches: [001/github-actions]
+  pull_request:
+    branches: [main]
 env:
   docker_registry: docker.pkg.github.com
   docker_image_name: fc-retrieval-provider
-  docker_image_tag: pr-${{ github.head_ref:0:3 }}
+  docker_image_tag: pr-${GITHUB_HEAD_REF:0:3}
 jobs:
   push_to_registry:
     name: Push Docker image to GitHub Packages
