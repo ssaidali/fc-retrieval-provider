@@ -12,15 +12,11 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
-      - name: Login to GitHub Packages
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Echo Docker image tag
         run: echo "pr-${GITHUB_HEAD_REF:0:3}"
       - name: Build Docker image
         run: make build REGISTRY=$docker_registry/${{ github.repository }}/ VERSION="pr-${GITHUB_HEAD_REF:0:3}"
+      - name: Login to Docker Container registry
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login $docker_registry -u ${{ github.actor }} --password-stdin
       - name: Push Docker image
         run: docker push $docker_registry/${{ github.repository }}/$docker_image_name:"pr-${GITHUB_HEAD_REF:0:3}"
