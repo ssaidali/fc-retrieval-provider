@@ -11,6 +11,11 @@ jobs:
     name: Push Docker image to GitHub Packages
     runs-on: ubuntu-latest
     steps:
+      - name: Echo environment variables
+        run: |
+          echo "Using docker_registry: $docker_registry"
+          echo "Using docker_image_name: $docker_image_name"
+          echo "Using docker_image_version: $docker_image_version"
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Echo Docker image
@@ -20,7 +25,7 @@ jobs:
       - name: Login to GitHub Packages
         uses: docker/login-action@v1
         with:
-          registry: $docker_registry
+          registry: docker.pkg.github.com
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Push Docker image
